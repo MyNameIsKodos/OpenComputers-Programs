@@ -8,6 +8,11 @@ dofile("config")
 dofile("compat")
 dofile("addresses")
 
+function round(num, idp)
+local mult = 10^(idp or 0)
+return math.floor(num * mult + 0.5) / mult
+end
+
 function pad(s, n)
   return s .. string.rep(" ", n - string.len(s))
 end
@@ -35,12 +40,12 @@ function showState()
   locAddr = sg.localAddress()
   remAddr = sg.remoteAddress()
   state, chevrons, direction = sg.stargateState()
-  energy = sg.energyAvailable()
+  energy = sg.energyAvailable() * 80
   iris = sg.irisState()
   showAt(30, 1, "Local:     " .. locAddr)
   showAt(30, 2, "Remote:    " .. remAddr)
   showAt(30, 3, "State:     " .. state)
-  showAt(30, 4, "Energy:    " .. energy)
+  showAt(30, 4, "Energy:    " .. round(energy, 0) .. " RF")
   showAt(30, 5, "Iris:      " .. iris)
   showAt(30, 6, "Engaged:   " .. chevrons)
   showAt(30, 7, "Direction: " .. direction)
