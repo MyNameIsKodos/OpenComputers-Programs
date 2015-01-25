@@ -4,9 +4,9 @@
 --   addresses selected from a list
 --
 
-dofile("config")
-dofile("compat")
-dofile("addresses")
+dofile("config.lua")
+dofile("compat.lua")
+dofile("addresses.lua")
 
 function round(num, idp)
 local mult = 10^(idp or 0)
