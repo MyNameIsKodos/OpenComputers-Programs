@@ -40,7 +40,7 @@ local lamp = component.colorful_lamp -- As of right now, a Computronics Lamp is 
 -- whether its current power draw is high enough
 -- to warrant enabling the reactor.
 
-local blue = 0x1f
+local blue = 0x1F
 
 gpu.setResolution(32,1) -- For larger CapBank multiblocks, '32' may need to be increased to fit the amounts.
 
@@ -75,8 +75,8 @@ local function updateLamp(curr, maxStorage)
     return
   else
     local perc = curr / maxStorage
-    local red = math.max(math.min(math.ceil(0x19 * ((1 - perc)*2)), 0x19), 0)
-    local green = math.max(math.min(math.ceil(0x19 * (perc * 2)), 0x19), 0)
+    local red = math.max(math.min(math.ceil(0x1C * ((1 - perc)*2)), 0x1C), 0)
+    local green = math.max(math.min(math.ceil(0x1F * (perc * 2)), 0x1F), 0)
     lamp.setLampColor(bit32.bor(bit32.lshift(red, 10), bit32.lshift(green, 5)))
   end
 end
