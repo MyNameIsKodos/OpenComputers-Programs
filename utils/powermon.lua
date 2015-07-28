@@ -81,6 +81,9 @@ local function updateLamp(curr, maxStorage)
   end
 end
 
+function updateReactor()
+
+end
 
 while true do
   local maxStorage = getMaxBatt()
