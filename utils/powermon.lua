@@ -31,18 +31,18 @@ local lamp = component.colorful_lamp -- As of right now, a Computronics Lamp is 
                                      -- I may take another stab at making it optional later on,
                                      -- but for now, it's required or the program will not run.
 									 
--- We're going to temporarily pretend that
--- this paragraph of text is my fancy function
--- that will allow my capacitor bank monitoring
--- program to simultaneously control my reactor
--- based upon whether or not the capacitor bank
--- has sufficient amounts of energy, as well as
--- whether its current power draw is high enough
--- to warrant enabling the reactor.
-
 local blue = 0x1F
 
-gpu.setResolution(32,1) -- For larger CapBank multiblocks, '32' may need to be increased to fit the amounts.
+local bit32 = bit32 or load([[return {
+    band = function(a, b) return a & b end,
+    bor = function(a, b) return a | b end,
+    bxor = function(a, b) return a ~ b end,
+    bnot = function(a) return ~a end,
+    rshift = function(a, n) return a >> n end,
+    lshift = function(a, n) return a << n end,
+}]])()  -- Thanks, Magik6k for the workaround code that I shamelessly sto- I mean borrowed!
+
+gpu.setResolution(40,1)
 
 local function checkBatt()
   local curr = 0
@@ -81,8 +81,7 @@ local function updateLamp(curr, maxStorage)
   end
 end
 
-function updateReactor()
-
+function updateReactor()  -- Code WIP
 end
 
 while true do
