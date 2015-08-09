@@ -1,8 +1,8 @@
 local kodos = {}
-local kodos.math = {}
-local kodos.textutils = {}
-local kodos.miscutils = {}
-local kodos.fileutils = {}
+kodos.math = {}
+kodos.textutils = {}
+kodos.miscutils = {}
+kodos.fileutils = {}
 
 function kodos.textutils.str2hex(a)                 -- textutils
   return a:gsub(".",function(a)
