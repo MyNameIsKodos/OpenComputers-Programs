@@ -1,30 +1,34 @@
 local kodos = {}
+local kodos.math = {}
+local kodos.textutils = {}
+local kodos.miscutils = {}
+local kodos.fileutils = {}
 
-function kodos.str2hex(a)                 -- textutils
+function kodos.textutils.str2hex(a)                 -- textutils
   return a:gsub(".",function(a)
     return string.format("%02x",a:byte())
   end)
 end
 
-function kodos.hex2str(a)                 -- textutils
+function kodos.textutils.hex2str(a)                 -- textutils
   return a:gsub("..",function(a)
     return string.char(tonumber(a,16))
   end)
 end
 
-function kodos.round(num, idp)            -- math
+function kodos.math.round(num, idp)            -- math
   local mult = 10^(idp or 0)
   return math.floor(num * mult + 0.5) / mult
 end
 
-function kodos.dump(mytab)                -- Not even sure what to categorize this into. Using it for method dump atm
+function kodos.miscutils.dump(mytab)                -- Not even sure what to categorize this into. Using it for method dump atm
   for k,v in pairs(mytab) do
     print(k,v)
   end
   return
 end
 
-function kodos.readFile(filename)         -- fileutils
+function kodos.fileutils.readFile(filename)         -- fileutils
   local file, err = io.open(filename,"rb")
   if not file then
     return nil, err
