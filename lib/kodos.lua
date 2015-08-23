@@ -38,4 +38,11 @@ function kodos.fileutils.readFile(filename)         -- fileutils
   return data
 end
 
+function kodos.fileutils.writeToFile(data,filename)
+  local file, err = io.open(filename,"w")
+  if not file then
+    return nil, err
+  end
+  local fname = 
+
 return kodos
