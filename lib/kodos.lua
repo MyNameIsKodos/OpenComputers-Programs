@@ -38,11 +38,24 @@ function kodos.fileutils.readFile(filename)         -- fileutils
   return data
 end
 
-function kodos.fileutils.writeToFile(data,filename)
-  local file, err = io.open(filename,"w")
-  if not file then
-    return nil, err
+function kodos.fileutils.writeToFile(data,filename,overwrite)
+  if overwrite then
+    local fhand,err = io.open(filename,"w")
+    if not fhand then
+      return nil,err
+    end
+    fhand:write(data)
+    fhand:close()
+  else
+    local fhand,err = io.open(filename,"a")
+    if not fhand then
+      return nil,err
+    end
+    fhand:write(data)
+    fhand:close()
   end
-  local fname = 
+  return
+end
 
+  
 return kodos
