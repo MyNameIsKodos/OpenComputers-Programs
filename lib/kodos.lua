@@ -1,8 +1,11 @@
+local component = require("component")
+
 local kodos = {}
 kodos.math = {}
 kodos.textutils = {}
 kodos.miscutils = {}
 kodos.fileutils = {}
+kodos.networkutils = {}
 
 function kodos.textutils.str2hex(a)                 -- textutils
   return a:gsub(".",function(a)
@@ -47,5 +50,19 @@ function kodos.fileutils.writeToFile(data,filename,overwrite)
   fhand:close()
 end
 
-  
+if component.isAvailable("data") or component.isAvailable("os_datablock") then
+function kodos.networkutils.prepare(data)        -- TODO: Actually write the functions
+end
+
+function kodos.networkutils.receive(data)
+end
+else
+function kodos.networkutils.prepare(data)
+end
+
+function kodos.networkutils.receive(data)
+end
+
+end
+
 return kodos
