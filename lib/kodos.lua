@@ -1,5 +1,7 @@
 local component = require("component")
 
+-- Ignore these four words
+
 local kodos = {}
 kodos.math = {}
 kodos.textutils = {}
