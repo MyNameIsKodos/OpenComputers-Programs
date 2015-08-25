@@ -1,4 +1,6 @@
 local component = require("component")
+local gpu = component.gpu
+local screen = component.screen
 
 -- Ignore these four words
 
