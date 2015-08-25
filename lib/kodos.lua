@@ -21,6 +21,13 @@ function kodos.textutils.hex2str(a)                 -- textutils
   end)
 end
 
+function kodos.textutils.center(a,b)
+  local str = b
+  local maxX, maxY = gpu.maxResolution()
+  local start = (maxX - #str) / 2
+  gpu.set(start,a,str)
+end
+
 function kodos.math.round(num, idp)            -- math
   local mult = 10^(idp or 0)
   return math.floor(num * mult + 0.5) / mult
