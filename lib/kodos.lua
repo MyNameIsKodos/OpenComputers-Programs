@@ -70,21 +70,19 @@ function kodos.fileutils.writeToFile(data,filename,overwrite)
   fhand:close()
 end
 
-if component.isAvailable("data") or component.isAvailable("os_datablock") then
+--if component.isAvailable("data") or component.isAvailable("os_datablock") then
 
-function kodos.networkutils.prepare(data)        -- TODO: Actually write the functions
-serdata = serialization.serialize(data)
-defdata = component.data.deflate(serdata) or component.os_datablock.deflate(serdata)
-return defdata
-end
-
-function kodos.networkutils.receive(data)
-infdata = component.data.inflate(data) or component.os_datablock.deflate(data)
-unserdata = serialization.unserialize(infdata)
-return unserdata
-end
-
-else
+--function kodos.networkutils.prepare(data)        -- TODO: Actually write the functions
+--serdata = serialization.serialize(data)
+--defdata = component.data.deflate(serdata) or component.os_datablock.deflate(serdata)
+--return defdata
+--end
+--function kodos.networkutils.receive(data)
+--infdata = component.data.inflate(data) or component.os_datablock.deflate(data)
+--unserdata = serialization.unserialize(infdata)
+--return unserdata
+--end
+--else
 
 function kodos.networkutils.prepare(data)
 serdata = serialization.serialize(data)
@@ -94,8 +92,6 @@ end
 function kodos.networkutils.receive(data)
 unserdata = serialization.unserialize(data)
 return unserdata
-end
-
 end
 
 return kodos
