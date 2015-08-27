@@ -80,7 +80,7 @@ end
 
 -- Networking Functions --
 
-function kodos.networkutils.prepare(data)   -- I realize this is just a wrapped serialize and unserialize function.
+function kodos.networkutils.prepare(data)     -- I realize this is just a wrapped serialize and unserialize function.
   serdata = serialization.serialize(data)     -- This lib is mostly for personal use, however anyone is free to use it, 
   return serdata                              -- or any code contained within.  - Kodos
 end
