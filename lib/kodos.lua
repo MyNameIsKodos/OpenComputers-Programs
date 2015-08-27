@@ -28,15 +28,15 @@ end
 
 function kodos.textutils.justify(a,b,c)
   if c == "center" then
-  local str = b
-  local maxX, maxY = gpu.maxResolution()
-  local start = (maxX - #str) / 2
-  gpu.set(start,a,str)
+    local str = b
+    local maxX, maxY = gpu.maxResolution()
+    local start = (maxX - #str) / 2
+    gpu.set(start,a,str)
   elseif c == "right" then
-  local str = b
-  local maxX, maxY = gpu.maxResolution()
-  local start = maxX - #str
-  gpu.set(start,a,str)
+    local str = b
+    local maxX, maxY = gpu.maxResolution()
+    local start = maxX - #str
+    gpu.set(start,a,str)
   end
 end
 
