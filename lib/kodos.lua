@@ -35,7 +35,7 @@ function kodos.textutils.justify(a,b,c)
   elseif c == "right" then
     local str = b
     local maxX, maxY = gpu.maxResolution()
-    local start = maxX - #str
+    local start = maxX - #str + 1
     gpu.set(start,a,str)
   end
 end
