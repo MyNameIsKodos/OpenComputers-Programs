@@ -1,5 +1,8 @@
 local component = require("component")
 local serialization = require("serialization")
+local term = require("term")
+local shell = require("shell")
+
 local gpu = component.gpu
 local screen = component.screen
 
