@@ -1,6 +1,8 @@
 local component = require("component")
 local pr = component.openprinter
 
+pr.setTitle(" ")
+
 pr.writeln(" ")
 pr.writeln(" ")
 pr.writeln(" ")
