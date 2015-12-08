@@ -63,6 +63,14 @@ function kodos.miscutils.dump(mytab)
   return
 end
 
+function kodos.miscutils.detable(table, indent)
+  indent = indent or 0;
+  for k, v in pairs(tab) do 
+  if type(v) == "table" then 
+    print(string.rep(" ", indent).. tostring(k) .. ">") 
+    detable(v, indent + 2) 
+    else print(string.rep(" ", indent) .. tostring(k) .. " = " .. tostring(v)) end end end
+
 -- File Utitily Functions --
 
 function kodos.fileutils.readFile(filename)   
