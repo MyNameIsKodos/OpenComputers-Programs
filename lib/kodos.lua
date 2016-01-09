@@ -7,12 +7,12 @@ local gpu = component.gpu
 local screen = component.screen
 
 local kodos = {}
-  kodos.math = {}
-  kodos.textutils = {}
-  kodos.miscutils = {}
-  kodos.fileutils = {}
-  kodos.networkutils = {}
-
+kodos.math = {}
+kodos.textutils = {}
+kodos.miscutils = {}
+kodos.fileutils = {}
+kodos.networkutils = {}
+kodos.computils = {}
 
 
 -- Text Utility Functions --
@@ -66,10 +66,13 @@ end
 function kodos.miscutils.detable(table, indent)
   indent = indent or 0;
   for k, v in pairs(tab) do 
-  if type(v) == "table" then 
-    print(string.rep(" ", indent).. tostring(k) .. ">") 
-    detable(v, indent + 2) 
-    else print(string.rep(" ", indent) .. tostring(k) .. " = " .. tostring(v)) end end end
+    if type(v) == "table" then 
+      print(string.rep(" ", indent).. tostring(k) .. ">") 
+      detable(v, indent + 2) 
+    else print(string.rep(" ", indent) .. tostring(k) .. " = " .. tostring(v)) 
+    end
+  end
+end
 
 -- File Utitily Functions --
 
@@ -102,6 +105,59 @@ end
 function kodos.networkutils.receive(data)
   unserdata = serialization.unserialize(data)
   return unserdata
+end
+
+-- Component Functions --
+
+if component.isAvailable("light_board") then
+  
+  function kodos.computils.blink(indx,clr) -- Only usable on the 4-light variant
+    component.light_board.setColor(indx,clr)
+    component.light_board.setActive(indx,true)
+    os.sleep(.1)
+    component.light_board.setActive(indx,false)
+    return 
+  end
+  
+  function kodos.computils.setLight(a,b,c)
+    component.light_board.setColor(a,b)
+    if c then component.light_board.setActive(a,c)
+    else component.light_board.setActive(a,true)
+    end
+    return 
+  end
+  
+  function kodos.computils.resetLight(a)
+    component.light_board.setActive(a,false)
+    component.light_board.setColor(a,0xFFFFFF)
+    return 
+  end
+  
+  function kodos.computils.resetLights()
+    for x = 1,component.light_board.light_count do
+      component.light_board.setActive(x,false)
+      component.light_board.setColor(x,0xFFFFFF)
+    end
+    return 
+  end
+  
+  function kodos.computils.disco()
+    local timr = 0
+    local lites = component.light_board.light_count
+    while timr < 300 do
+      local lite = math.random(1,lites)
+      chc = math.random(1,2)
+      if chc == 1 then
+        kodos.computils.setLight(lite,math.random(0xFFFFFF))
+      elseif chc == 2 then
+        kodos.computils.setLight(lite,math.random(0xFFFFFF),false)
+      end
+      timr = timr + 1
+      os.sleep(0.05)
+    end
+    return 
+  end
+
 end
 
 return kodos
