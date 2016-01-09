@@ -158,6 +158,14 @@ if component.isAvailable("light_board") then
     return 
   end
 
+  function kodos.computils.setMeter(curr,max)  -- For 1x12 light boards
+    local function round(num, idp)           
+  local mult = 10^(idp or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+return round((curr / max) * 12,0)
+end
+
 end
 
 return kodos
