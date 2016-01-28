@@ -14,6 +14,15 @@ kodos.fileutils = {}
 kodos.networkutils = {}
 kodos.computils = {}
 
+--[[
+TODO:
+
+* Add other component functions, accompanied by corresponding 'if component is available, etc' statements.
+* Sort computils into subtables per component for more organization
+* Stuff
+* Things
+]]
+
 
 -- Text Utility Functions --
 
@@ -110,45 +119,48 @@ end
 -- Component Functions --
 
 if component.isAvailable("light_board") then
+    
+  function kodos.computils.setLight(indx,clr,onOff)
+    component.light_board.setColor(indx,clr)
+    component.light_board.setActive(indx,onOff)
+    return 
+  end
   
   function kodos.computils.blink(indx,clr) -- Only usable on the 4-light variant
-    component.light_board.setColor(indx,clr)
-    component.light_board.setActive(indx,true)
-    os.sleep(.1)
-    component.light_board.setActive(indx,false)
-    return 
+    local cnt = component.light_board.light_count
+    if cnt ~= 4 then 
+	  return nil, "wrong board mode"
+    else
+      kodos.computils.setLight(indx,clr,true)
+      os.sleep(.1)
+	  kodos.computils.setLight(indx,clr,false)
+      return true
+    end
   end
   
-  function kodos.computils.setLight(a,b,c)
-    component.light_board.setColor(a,b)
-    if c then component.light_board.setActive(a,c)
-    else component.light_board.setActive(a,true)
-    end
-    return 
-  end
+
   
   function kodos.computils.resetLight(a)
-    component.light_board.setActive(a,false)
-    component.light_board.setColor(a,0xFFFFFF)
+    kodos.computils.setLight(a,0xFFFFFF,false)
     return 
   end
   
   function kodos.computils.resetLights()
     for x = 1,component.light_board.light_count do
-      component.light_board.setActive(x,false)
-      component.light_board.setColor(x,0xFFFFFF)
+      kodos.computils.setLight(x,0xFFFFFF,false)
     end
     return 
   end
   
-  function kodos.computils.disco()
-    local timr = 0
+  function kodos.computils.disco(dur)
+    local dur = (dur or 300)
+	local timr = 0
     local lites = component.light_board.light_count
-    while timr < 300 do
+    while timr < dur do
       local lite = math.random(1,lites)
       chc = math.random(1,2)
       if chc == 1 then
-        kodos.computils.setLight(lite,math.random(0xFFFFFF))
+        kodos.computils.setLight(lite,math.random(0xFFFFFF),true)
       elseif chc == 2 then
         kodos.computils.setLight(lite,math.random(0xFFFFFF),false)
       end
@@ -157,12 +169,6 @@ if component.isAvailable("light_board") then
     end
     return 
   end
-
--- function kodos.computils.setMeter(curr,max)  -- For 1x12 light boards; TODO
--- local lites = kodos.math.round((curr / max) * 12,0)
--- for i = 1,lites do 
--- component.light_board.set
--- end
 
 end
 
