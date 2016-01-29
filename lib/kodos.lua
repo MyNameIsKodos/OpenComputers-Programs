@@ -12,8 +12,10 @@ kodos.textutils = {}
 kodos.miscutils = {}
 kodos.fileutils = {}
 kodos.networkutils = {}
-kodos.computils = {}
 
+kodos.computils = {}
+  kodos.computils.light_board = {}
+  
 --[[
 TODO:
 
@@ -22,7 +24,6 @@ TODO:
 * Stuff
 * Things
 ]]
-
 
 -- Text Utility Functions --
 
@@ -120,39 +121,39 @@ end
 
 if component.isAvailable("light_board") then
     
-  function kodos.computils.setLight(indx,clr,onOff)
+  function kodos.computils.light_board.setLight(indx,clr,onOff)
     component.light_board.setColor(indx,clr)
     component.light_board.setActive(indx,onOff)
     return 
   end
   
-  function kodos.computils.blink(indx,clr) -- Only usable on the 4-light variant
+  function kodos.computils.light_board.blink(indx,clr) -- Only usable on the 4-light variant
     local cnt = component.light_board.light_count
     if cnt ~= 4 then 
 	  return nil, "wrong board mode"
     else
-      kodos.computils.setLight(indx,clr,true)
+      kodos.computils.light_board.setLight(indx,clr,true)
       os.sleep(.1)
-	  kodos.computils.setLight(indx,clr,false)
+	  kodos.computils.light_board.setLight(indx,clr,false)
       return true
     end
   end
   
 
   
-  function kodos.computils.resetLight(a)
-    kodos.computils.setLight(a,0xFFFFFF,false)
+  function kodos.computils.light_board.resetLight(a)
+    kodos.computils.light_board.setLight(a,0xFFFFFF,false)
     return 
   end
   
-  function kodos.computils.resetLights()
+  function kodos.computils.light_board.resetLights()
     for x = 1,component.light_board.light_count do
-      kodos.computils.setLight(x,0xFFFFFF,false)
+      kodos.computils.light_board.setLight(x,0xFFFFFF,false)
     end
     return 
   end
   
-  function kodos.computils.disco(dur)
+  function kodos.computils.light_board.disco(dur)
     local dur = (dur or 300)
 	local timr = 0
     local lites = component.light_board.light_count
@@ -160,9 +161,9 @@ if component.isAvailable("light_board") then
       local lite = math.random(1,lites)
       chc = math.random(1,2)
       if chc == 1 then
-        kodos.computils.setLight(lite,math.random(0xFFFFFF),true)
+        kodos.computils.light_board.setLight(lite,math.random(0xFFFFFF),true)
       elseif chc == 2 then
-        kodos.computils.setLight(lite,math.random(0xFFFFFF),false)
+        kodos.computils.light_board.setLight(lite,math.random(0xFFFFFF),false)
       end
       timr = timr + 1
       os.sleep(0.05)
