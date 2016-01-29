@@ -153,6 +153,15 @@ if component.isAvailable("light_board") then
     return 
   end
   
+  function kodos.computils.light_board.setMeter(curr,max)
+    local totalLights = component.light_board.light_count
+	local lightsOn = math.ceil((curr/(max/100))*(totalLights/100))
+	for l = 1,totalLights do
+	  component.light_board.setActive(l,(l <= lightsOn))
+	  end
+	return
+  end
+  
   function kodos.computils.light_board.disco(dur)
     local dur = (dur or 300)
 	local timr = 0
