@@ -155,6 +155,12 @@ if component.isAvailable("light_board") then
   
   function kodos.computils.light_board.setMeter(curr,max)
     local totalLights = component.light_board.light_count
+	if max == 0 then
+	  for i = 1,totalLights do
+	    kodos.computils.setLight(i,0x0000FF,true)
+	  end
+	  return nil, "no max value found" end
+	else
 	local lightsOn = math.ceil((curr/(max/100))*(totalLights/100))
 	for l = 1,totalLights do
 	  component.light_board.setActive(l,(l <= lightsOn))
