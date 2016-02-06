@@ -159,15 +159,19 @@ end
 
 function kodos.secutils.logData(username, arg)
   if not fs.get("/").isReadOnly() then
-  if not fs.exists("/logs/") then
-    fs.makeDirectory("/logs/")
-  end
+    if not fs.exists("/logs/") then
+      fs.makeDirectory("/logs/")
+    end
   userw = io.open("/logs/auth.log", "a")
-  userw:write(username .. " | " .. arg .. "\n")
-  userw:close()
+    if (userw) then
+      userw:write(username .. " | " .. arg .. "\n")
+      userw:close()
+    elseif not (userw) then
+    io.stderr:write("Error opening log file")
+  end
   elseif fs.get("/").isReadOnly() then
-io.stderr:write("Error writing to log file. Filesystem is read-only")
-end
+    io.stderr:write("Error writing to log file. Filesystem is read-only")
+  end
 end
 
 
