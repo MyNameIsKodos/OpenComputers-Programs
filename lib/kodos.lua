@@ -13,6 +13,7 @@ kodos.fileutils = {}
 kodos.mathutils = {}
 kodos.miscutils = {}
 kodos.networkutils = {}
+kodos.secutils = {}
 kodos.textutils = {}
 
 --[[
@@ -153,6 +154,22 @@ function kodos.networkutils.receive(data)
 unserdata = serialization.unserialize(data)
 return unserdata
 end
+
+-- Security Utilities --
+
+function kodos.secutils.logData(username, arg)
+  if not fs.get("/").isReadOnly() then
+  if not fs.exists("/logs/") then
+    fs.makeDirectory("/logs/")
+  end
+  userw = io.open("/logs/auth.log", "a")
+  userw:write(username .. " | " .. arg .. "\n")
+  userw:close()
+  elseif fs.get("/").isReadOnly() then
+io.stderr:write("Error writing to log file. Filesystem is read-only")
+end
+end
+
 
 -- Text Utility Functions --
 
