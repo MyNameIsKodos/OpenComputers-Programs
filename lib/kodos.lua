@@ -8,6 +8,7 @@ local screen = component.screen
 
 local kodos = {}
   kodos.computils = {}
+  kodos.computils.os_keypad = {}
   kodos.computils.light_board = {}
   kodos.fileutils = {}
   kodos.mathutils = {}
@@ -93,6 +94,23 @@ if component.isAvailable("light_board") then
   end
   
 end
+
+if component.isAvailable("os_keypad") then
+  
+  function kodos.computils.os_keypad.setDisplay(displayText,duration,textColor)
+    if textColor then
+      component.os_keypad.setDisplay(displayText, textColor)
+      os.sleep(duration)
+      component.os_keypad.setDisplay("",textColor)
+    elseif not textColor then
+      component.os_keypad.setDisplay(displayText)
+      os.sleep(duration)
+      component.os_keypad.setDisplay("")
+    end
+  end
+  
+end
+
 
 -- File Utitily Functions --
 
