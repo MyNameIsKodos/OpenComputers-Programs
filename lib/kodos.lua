@@ -90,7 +90,6 @@ if component.isAvailable("light_board") then
       timr = timr + 1
       os.sleep(0.05)
     end
-    return 
   end
   
 end
@@ -146,7 +145,6 @@ function kodos.miscutils.dump(mytab)
   for k,v in pairs(mytab) do
     print(k,v)
   end
-  return
 end
 
 function kodos.miscutils.detable(table, indent)
