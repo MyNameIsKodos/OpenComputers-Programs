@@ -86,6 +86,12 @@ local commands = {
     end
   },
 
+  { "Save Configuration",
+    function()
+      send("saveConfiguration")
+    end
+  },
+
   { "Get health",
     function()
       send("getHealth")
