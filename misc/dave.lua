@@ -1,65 +1,83 @@
 local component = require("component")
-local colors = require("colors")
-local sides = require("sides")
 local event = require("event")
+local os = require("os")
 
-local rs = component.redstone
 local cb = component.chat_box
-local cl = component.colorful_lamp
-local de = component.draconic_storage
-local ni = component.notification_interface -- TODO: Correct component name
-local db = component.debug
-local ws = component.world_sensor -- TODO: Correct this one too
+local op = component.openprinter
 
+local char_space = string.byte(" ")
+local running = true
+local char_pause = string.byte("p")
 
-
--- ChatBox init
 cb.setName("Dave")
 
-if cb.getDistance() < 32768 then
-cb.setDistance(32768)
-end
-
-local function rgbto15(r,g,b) 
-  return (b%32)+((g%32)*32)+((r%32)*1024) 
-end
-
-local function round(num, idp)
-	local mult = 10^(idp or 0)
-	return math.floor(num * mult + 0.5) / mult
-end
-
 local messages = {
-
-  ["lights"] = {
+  
+  ["hello"] = {
     --Syntax: ["keyword"] = {function, all, other, arguments}
-    ["on"] = {rs.setBundledOutput, sides.back, colors.cyan, 15},
-    -- ["on"] = {rs.setBundledOutput, sides.back, colors.orange, 15},
-    ["off"] = {rs.setBundledOutput, sides.back, colors.cyan, 0},
-    -- ["off"] = {rs.setBundledOutput, sides.back, colors.orange, 0}
+    ["Conor"] = {cb.say, "Hello, Conor."},
+    ["Dorrin"] = {cb.say, "Hello, Dorrin."},
+    ["Bal"] = {cb.say, "Hello, Baloin"}
   },
-
-  ["door"] = {
-    ["open"] = {rs.setBundledOutput, sides.back, colors.magenta, 15},
-    ["close"] = {rs.setBundledOutput, sides.back, colors.magenta, 0}
-  },
-
-  ["all machines"] = {
-    ["on"] = {cl.setLampColor, rgbto15(0,255,0)},
-    ["off"] = {cl.setLampColor, rgbto15(255,0,0)}
-  },
-
+  
+--  ["printer"] = {
+--    ["paper"] = {cb.say, "The printer has " .. op.getPaperLevel() .. " paper uses left"},
+--    ["black ink"] = {cb.say, "The printer has " .. op.getBlackInkLevel() .. " black ink uses left},
+--    ["color ink"] = {}
+--  },
+  
+--  ["lamp"] = {
+--    ["on"] = {ol.setColor, 0x00FF00},
+--    ["off"] = {ol.setColor, 0xFF0000}
+--  },
+  
   ["core"] = {
-    ["current"] = {cb.say, tostring(de.getEnergyStored())},
-    ["max"] = {cb.say, tostring(de.getMaxEnergyStored())}
-  }
+    ["current"] = {cb.say, "Herpderp"},
+    ["max"] = {cb.say, "Herpderp"}
+  },
   
   ["reactor"] = {
-  ["fuel"] = {}
+    ["fuel"] = {}
+  },
+  
+  ["awesome"] = {
+    ["you're"] = {cb.say, "No, you're awesome."}
   }
   
-  }
-  
+}
+
+local function openDoor()
+  door.toggle()
+  os.sleep(5)
+  door.toggle()
+  return
+end
+
+local function cardMenu()
+  term.clear()
+  term.setCursor(1,1)
+  print("Do you wish to add or remove a UUID? (A/r)")
+  choice = io.read()
+  if choice and (choice == "" or choice:sub(1,1):lower() == "a") then
+    choice = "a" -- I have no idea where I was going with this
+  else choice = "r"
+  end
+  return choice
+end
+
+-- local function doChoice()
+-- end
+
+--[[ local function authorized()
+  local env = {}
+  local config = loadfile("/etc/auth.dat", nil, env)
+  if config then
+    pcall(config)
+  end
+  return env.authorized
+end
+
+local authorized = authorized() -- This one? ]]
 
 local function getFunction(tbl, msg)
   if tbl[1] then
@@ -67,7 +85,7 @@ local function getFunction(tbl, msg)
   end
   for i,j in pairs(tbl) do
     if type(i) == "string" then
-      print(i)
+      -- print(i)
       if msg:find(i) and type(j) == "table" then
         return getFunction(j, msg)
       end
@@ -81,9 +99,48 @@ local function parseMessage(msg)
   return pcall(table.unpack(fnc))
 end
 
-while true do
-local _, _, user, message = event.pull("chat_message")
-local result, response = parseMessage(message:lower())
-print(result)
-print(response)
+function unknownEvent()
+end
+
+local myEventHandlers = setmetatable({}, { __index = function() return unknownEvent end })
+
+function myEventHandlers.key_up(adress, char, code, playerName)
+  if (char == char_space) then
+    running = false
+    --[[elseif (char == char_pause) then
+    cardMenu()
+    doChoice()  ]]--
+  end
+end
+
+function myEventHandlers.chat_message(adr,playerName,message)
+  if message:find("^%Dave, .+") then
+    local result, response = parseMessage(message:lower())
+  end
+end
+
+
+
+
+--[[function myEventHandlers.magData(addr, playerName, data, UUID, locked)
+  for i = 1,#authorized do
+    -- print("Checking index #" .. i .. " for a match against: " .. UUID)
+    if UUID == authorized[i] then
+      print("Door opening for " .. playerName .. ".")
+      openDoor()
+      break
+    elseif UUID ~= authorized[i] then
+      print("Unauthorized Access attempt from " .. playerName .. "!")
+    end
+  end
+end]]
+
+function handleEvent(eventID, ...)
+  if (eventID) then -- can be nil if no event was pulled for some time
+    myEventHandlers[eventID](...) -- call the appropriate event handler with all remaining arguments
+  end
+end
+
+while running do
+  handleEvent(event.pull())
 end
