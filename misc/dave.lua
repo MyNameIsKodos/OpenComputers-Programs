@@ -20,24 +20,10 @@ local messages = {
     ["Bal"] = {cb.say, "Hello, Baloin"}
   },
   
---  ["printer"] = {
---    ["paper"] = {cb.say, "The printer has " .. op.getPaperLevel() .. " paper uses left"},
---    ["black ink"] = {cb.say, "The printer has " .. op.getBlackInkLevel() .. " black ink uses left},
---    ["color ink"] = {}
---  },
-  
---  ["lamp"] = {
---    ["on"] = {ol.setColor, 0x00FF00},
---    ["off"] = {ol.setColor, 0xFF0000}
---  },
-  
-  ["core"] = {
-    ["current"] = {cb.say, "Herpderp"},
-    ["max"] = {cb.say, "Herpderp"}
-  },
-  
-  ["reactor"] = {
-    ["fuel"] = {}
+  ["printer"] = {
+    ["paper"] = {cb.say, "The paper level is at " .. op.getPaperLevel() .. "."},
+    ["black ink"] = {cb.say, "The black ink level is at " .. op.getBlackInkLevel() .. "."},
+    ["color ink"] = {cb.say, "The color ink level is at " .. op.getColorInkLevel() .. "."}
   },
   
   ["awesome"] = {
@@ -64,9 +50,6 @@ local function cardMenu()
   end
   return choice
 end
-
--- local function doChoice()
--- end
 
 --[[ local function authorized()
   local env = {}
