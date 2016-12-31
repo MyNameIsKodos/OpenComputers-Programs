@@ -1,0 +1,20 @@
+NAME
+  size - check the size of a file in bytes
+
+SYNOPSIS
+  size FILE
+  size FILE -a
+
+DESCRIPTION
+  The size program allows checking the size of a file. This is useful for checking whether or not a file can fit onto a floppy or other storage medium.
+
+OPTIONS
+  -a
+	Shows the actual byte value of a file, instead of resolving to kilobytes (or megabytes, if applicable)
+  
+EXAMPLES
+  size init.lua
+	Will output the file size of init.lua
+	
+  size /lib/filesystem.lua -a
+	Will output the file size for filesystem.lua in bytes, even though filesystem.lua is over 1kb.
