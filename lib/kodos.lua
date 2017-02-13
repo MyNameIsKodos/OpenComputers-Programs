@@ -158,17 +158,24 @@ function kodos.miscutils.detable(table, indent)
   end
 end
 
+function kodos.miscutils.trim(value)
+  local from = string.match(value, "^%s*()")
+  return from > #value and "" or string.match(value, ".*%S", from)
+end
+
+function kodos.miscutils.parseString2List(self, sep)
+  local t = {}
+  local i = 1
+  for str in self:gmatch("([^" .. sep .. "]+)") do
+    t[i] = kodos.miscutils.trim(str)
+    i = i + 1
+  end
+  return t
+end
+
 -- Networking Functions --
 
-function kodos.networkutils.prepare(data)     -- I realize this is just a wrapped serialize and unserialize function.
-  serdata = serialization.serialize(data)     -- This lib is mostly for personal use, however anyone is free to use it, 
-  return serdata                              -- or any code contained within.  - Kodos
-end
-
-function kodos.networkutils.receive(data)
-  unserdata = serialization.unserialize(data)
-  return unserdata
-end
+  -- TBA
 
 -- Security Utilities --
 
