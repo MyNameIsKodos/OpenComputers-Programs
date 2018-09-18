@@ -23,7 +23,7 @@ local currButton = ""
 
 -- Keypad init
 
-kpButtons = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "CLR", "0", "ENT"}
+kpButtons = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "CL", "0", "OK"}
 kpColors = {15, 15, 15, 15, 15, 15, 15, 15, 15, 12, 15, 10}
 kp.setKey(kpButtons, kpColors)
 
