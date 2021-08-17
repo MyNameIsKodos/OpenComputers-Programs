@@ -404,7 +404,7 @@ function drawGateControls(colorControls)
   gpu.fill(40, 3, 1, 29, " ")
   gpu.fill(40, 3, 112, 1, " ")
   
-  --address windows
+  --[[address windows
   gpu.setBackground(colorControls)
   gpu.setForeground(0xFFFFFF)
   gpu.fill(130, 8, 14, 5, " ")
@@ -430,7 +430,7 @@ function drawGateControls(colorControls)
   gpu.set(129, 29, "4")
   gpu.set(129, 35, "5")
   gpu.set(129, 41, "6")
-  gpu.set(129, 47, "7")
+  gpu.set(129, 47, "7")]]--
 end
 
 function drawButtons()
@@ -468,13 +468,13 @@ function drawButtons()
   gpu.fill(5, 20, 26, 1, " ")
   gpu.fill(5, 22, 26, 3, " ")
   gpu.set(8, 18, "ENERGY AVAILABLE:")
-  --address book
+  --[[address book
   gpu.setBackground(0x339D8F)
   gpu.fill(4, 27, 28, 3, " ")
   gpu.setBackground(0x000000)
   gpu.setForeground(0xFFFFFF)
   gpu.fill(5, 28, 26, 1, " ")
-  gpu.set(11, 28, "ADDRESS BOOK")
+  gpu.set(11, 28, "ADDRESS BOOK")]]--
   --settings
   gpu.setBackground(0x339D8F)
   gpu.fill(4, 31, 28, 3, " ")
@@ -690,7 +690,7 @@ function addressBook(override)
       table.insert(locations, location)
   end
   
-  local addressBookRunning = true
+  local addressBookRunning = false -- Setting this to false to see if I can unbreak it
   while addressBookRunning do
     
     --print(tablelength(locations))
