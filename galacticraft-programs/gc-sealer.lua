@@ -12,8 +12,6 @@ local online = false
 local maxEnergy
 local currEnergy
 local currOxygen
-local sealed
-
 
 -- Requires
 
@@ -41,7 +39,6 @@ sealer.setEnabled(online) -- And this
 maxEnergy = sealer.getMaxEnergy() -- And this
 currEnergy = sealer.getStoredEnergy()  -- Annnnd this
 currOxygen = sealer.getOxygenTank().amount
-sealed = sealer.isSealed()
 
 ---
 
@@ -61,7 +58,7 @@ term.write("Oxygen Sealer Systems\n\n")
 term.write("Sealer O2 Storage: \27[36m" .. tostring(currOxygen) .. "\27[0m\n")
 term.write("Power Levels: " .. tostring(currEnergy) .. "/" .. tostring(maxEnergy) .. "\n\n")
 term.write("Sealer Status:  " .. (online and "\27[32mONLINE\n\27[0m" or "\27[31mOFFLINE\27[0m\n"))
-term.write("Sealed: " .. (sealed and "\27[32mYES\n\27[0m" or "\27[31mNO\n\27[0m"))
+term.write("Sealed: " .. (sealer.isSealed() and "\27[32mYES\n\27[0m" or "\27[31mNO\n\27[0m"))
 term.write("Press SPACE to exit this program.")
 end
 
