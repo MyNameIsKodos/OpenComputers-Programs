@@ -48,13 +48,13 @@ if component.isAvailable("light_board") then
   end
   
   function kodos.computils.light_board.resetLight(a)
-    kodos.computils.light_board.setLight(a,0xFFFFFF,false)
+    kodos.computils.light_board.setLight(a,0x000000,false)
     return 
   end
   
   function kodos.computils.light_board.resetLights()
     for x = 1,component.light_board.light_count do
-      kodos.computils.light_board.setLight(x,0xFFFFFF,false)
+      kodos.computils.light_board.setLight(x,0x000000,false)
     end
     return 
   end
