@@ -1,0 +1,14 @@
+{
+  emitRedstone = true,
+  label = "Industrial Switch",
+  tooltip = "An Industrial Switch for all your Immersive needs!",
+  shapes = {
+    { 5, 4, 15, 11, 12, 16, texture = "immersiveengineering:blocks/storage_steel" }, -- Inactive Switch, Base
+    { 6, 5, 14, 10, 7, 15, texture = "opencomputers:blocks/generic_top", tint = 0xFF0000 }, -- Inactive Switch, Red Indicator
+    { 6, 9, 14, 10, 11, 15, texture = "opencomputers:blocks/generic_top", tint = 0x004400 }, -- Inactive Switch, Green Indicator
+    
+    { 5, 4, 15, 11, 12, 16, texture = "immersiveengineering:blocks/storage_steel", state = true }, -- Active Switch, Base
+    { 6, 5, 14, 10, 7, 15, texture = "opencomputers:blocks/generic_top", tint = 0x440000, state = true }, -- Active Switch, Red Indicator
+    { 6, 9, 14, 10, 11, 15, texture = "opencomputers:blocks/generic_top", tint = 0x00FF00, state = true } -- Active Switch, Green Indicator
+  }
+}
