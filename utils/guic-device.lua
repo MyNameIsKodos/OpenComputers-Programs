@@ -36,6 +36,7 @@ local thing2 = component.proxy(thing2Addr)
 local char_space = string.byte(" ")
 local char_thing1 = string.byte("1")
 local char_thing2 = string.byte("2")
+local char_refresh = string.byte("r")
 
 local running = true
 
@@ -89,6 +90,8 @@ function myEventHandlers.key_up(adress, char, code, playerName)
   toggleThing1()
   elseif (char == char_thing2) then
     toggleThing2()
+  elseif (char == char_refresh) then
+    updateDisplay()
   end
 end
 
